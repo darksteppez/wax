@@ -20,7 +20,7 @@ jobs:
         registry: ghcr.io
         username: ${{github.actor}}
         password: ${{secrets.PUBLISH_CONTAINER}}
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag wax:$(date +%s)
-    - name: Push the Docker image
-      run: docker push wax:$(date +%s)
+    - name: 'Build Inventory Image'
+      run: |
+        docker build . --tag ghcr.io/darksteppez/wax:latest
+        docker push ghcr.io/darksteppez/wax:latest
