@@ -14,5 +14,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Log in to the Container registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{github.actor}}
+        password: ${{secrets.PUBLISH_CONTAINER}}
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag wax:$(date +%s)
+    - name: Push the Docker image
+      run: docker push wax:$(date +%s)
